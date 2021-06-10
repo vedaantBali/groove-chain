@@ -9,7 +9,7 @@ const MINING_REWARD = 50;
 const GENESIS_DATA = {
     timestamp: 1,
     lastHash: '-----',
-    hash: '1',
+    hash: 'g3n3515-#45#',
     difficulty: INITIAL_DIFFICULTY,
     nonce: 0,
     data: []
