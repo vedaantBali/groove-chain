@@ -1,8 +1,8 @@
 const Block = require("./block");
-const { cryptoHash } = require("../util");
-const { REWARD_INPUT, MINING_REWARD } = require("../config");
 const Transaction = require("../wallet/transaction");
 const Wallet = require("../wallet");
+const { cryptoHash } = require("../util");
+const { REWARD_INPUT, MINING_REWARD } = require("../config");
 
 class Blockchain {
     constructor() {
@@ -12,7 +12,7 @@ class Blockchain {
     addBlock({ data }) {
         const newBlock = Block.mineBlock({
             lastBlock: this.chain[this.chain.length - 1],
-            data: data
+            data
         })
 
         this.chain.push(newBlock);
@@ -30,7 +30,7 @@ class Blockchain {
         }
 
         if(validateTransactions && !this.validTransactionData({ chain })) {
-            console.error('Incoming chain is invalid');
+            console.error('incoming chain contains invalid data');
             return ;
         }
 
@@ -48,7 +48,7 @@ class Blockchain {
 
             for(let transaction of block.data) {
                 if(transaction.input.address === REWARD_INPUT.address) {
-                    rewardTransactionCount++;
+                    rewardTransactionCount += 1;
 
                     if(rewardTransactionCount > 1) {
                         console.error('Miner reward exceeds limit');
@@ -67,10 +67,11 @@ class Blockchain {
 
                     const trueBalance = Wallet.calculateBalance({
                         chain: this.chain,
-                        address: transaction.input.address
+                        address: transaction.input.address,
+                        timestamp: transaction.input.timestamp
                     });
 
-                    if(transaction.input.amount != trueBalance) {
+                    if(transaction.input.amount !== trueBalance) {
                         console.error('Invalid input amount');
                         return false;
                     }
@@ -91,16 +92,15 @@ class Blockchain {
         if(JSON.stringify(chain[0]) !== JSON.stringify(Block.genesis())) return false;
         
         for(let i=1; i<chain.length; i++) {
-            const block = chain[i];
+            const { timestamp, lastHash, hash, nonce, difficulty, data } = chain[i];
             const actualLastHash = chain[i-1].hash;
-            const { timestamp, lastHash, hash, nonce, difficulty, data } = block;
             const lastDifficulty = chain[i-1].difficulty;
 
             if(lastHash !== actualLastHash) return false;
             
             const validatedHash = cryptoHash(timestamp, lastHash, data, nonce, difficulty);
 
-            if(hash != validatedHash) return false;
+            if(hash !== validatedHash) return false;
 
             if(Math.abs(lastDifficulty - difficulty) > 1) return false;
         }

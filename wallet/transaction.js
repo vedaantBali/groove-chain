@@ -47,7 +47,7 @@ class Transaction {
     static validTransaction(transaction) {
         const { input: { address, amount, signature}, outputMap} = transaction;
         const outputTotal = Object.values(outputMap)
-            .reduce((total, outputAmount) => total+= outputAmount);
+            .reduce((total, outputAmount) => total + outputAmount);
 
         if(amount !== outputTotal) {
             console.error(`invalid transaction from ${address}`);

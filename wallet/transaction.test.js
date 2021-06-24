@@ -88,6 +88,7 @@ describe('Transaction', () => {
                     expect(errorMock).toHaveBeenCalled();
                 });
             });
+            
             describe('and a transaction input signature is invalid', () => {
                 it('return false and logs error', () => {
                     transaction.input.signature = new Wallet().sign('data');

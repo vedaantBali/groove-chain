@@ -1,6 +1,6 @@
+const Transaction = require("./transaction");
 const { STARTING_BALANCE } = require("../config");
 const { ec, cryptoHash } = require("../util");
-const Transaction = require("./transaction");
 
 class Wallet{
     constructor() {
@@ -26,25 +26,35 @@ class Wallet{
         return new Transaction({ senderWallet: this, receiver, amount });
     }
 
-    static calculateBalance({ chain, address }) {
+    static calculateBalance({ chain, address, timestamp }) {
         let hasConductedTransaction = false;
+        let lessThanTimestamp = true;
         let outputsTotal = 0;
 
         for(let i=chain.length-1; i>0; i--) {
             const block = chain[i];
 
             for(let transaction of block.data) {
+
+                if(transaction.input.timestamp >= timestamp) {
+                    lessThanTimestamp = false;
+                    console.log('Illegal Transaction.');
+                    break ;
+                }
+
                 if(transaction.input.address === address) {
                     hasConductedTransaction = true;
                 }
+
                 const addressOutput = transaction.outputMap[address];
 
                 if(addressOutput) {
-                    outputsTotal += addressOutput;
+                    outputsTotal = outputsTotal + addressOutput;
                 }
             }
             if(hasConductedTransaction) {
-                break;
+                if(hasConductedTransaction || !lessThanTimestamp)
+                    break;
             }
         }
         return hasConductedTransaction ? 
