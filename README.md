@@ -192,5 +192,5 @@ replacing chain with  [
 As you can see, a new block has been added to the blockchain, after the GENESIS BLOCK
 
 ----
-
+### In case the port 3000 appears to be in use, run the shell script labeled as fix_port.sh which is present in the root of the directory.
 
