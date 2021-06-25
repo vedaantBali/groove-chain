@@ -192,5 +192,39 @@ replacing chain with  [
 As you can see, a new block has been added to the blockchain, after the GENESIS BLOCK
 
 ----
-### In case the port 3000 appears to be in use, run the shell script labeled as fix_port.sh which is present in the root of the directory.
+##### *In case the port 3000 appears to be in use, run the shell script labeled as fix_port.sh which is present in the root of the directory.
+----
+### - With Postman
+1. Follow the same steps to open instances of the application on different ports on your machine.
+```
+$ npm run dev
+$ npm run dev-peer
+```
+2. Open Postman, and in a new tab, send a GET request to the `api/wallet-info` end-point.
 
+![api/wallet-info](readme-images/image-1)
+
+![api/wallet-info output](readme-images/image-2.png)
+
+3. To send groove-coins, head over to another tab and configure a POST request to `api/transact` as follows.
+
+![api/transact](readme-images/image-3)
+
+![api/transact output](readme-images/image-4)
+
+4. To view the transaction pool, go to the `api/transaction-pool-map` end point.
+
+![api/transaction-pool-map](readme-images/image-5)
+
+![api/transaction-pool-map output](readme-images/image-6)
+
+5. To mine the transactions, head over to the `api/mine-transactions` end-point.
+
+![api/mine-transactions](readme-images/image-7)
+
+You will be redirected to the `api/blocks` end-point after successfully mining the transactions.
+
+![api/blocks](readme-images/image-8)
+![api/blocks](readme-images/image-9)
+
+----
