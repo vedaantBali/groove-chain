@@ -75,6 +75,7 @@ app.get('/api/mine-transactions', (req, res) => {
     else {
         res.json({ message: 'Transaction pool is empty'});
     }
+    res.redirect('/api/blocks');
 });
 
 app.get('/api/wallet-info', (req, res) => {
