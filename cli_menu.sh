@@ -29,7 +29,10 @@ case $choice in
     5)  echo "Starting to mine..."
         curl http://localhost:$PORT/api/mine-transactions 
         echo ""
-        echo "Done.";;
+        echo "Done."
+        curl http://localhost:$PORT/api/blocks
+        echo "";;
+
     6)  echo "Enter the port number: " ;read PORT
         echo "";;
     7)  echo "Exiting..."
