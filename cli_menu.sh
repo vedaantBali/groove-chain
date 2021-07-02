@@ -14,23 +14,23 @@ while :
 do
 read choice
 case $choice in
-    1)  curl http://localhost:$PORT/api/wallet-info
+    1)  curl http://localhost:$PORT/api/wallet-info | jq
         echo "";;
     2)  echo "Enter receiver: "
         read RECEIVER
         echo "Enter amount: "
         read AMOUNT
-        curl -X POST -H "Content-Type: application/json" -d '{"receiver": "'"$RECEIVER"'" , "amount":'"$AMOUNT"'}' http://localhost:$PORT/api/transact
+        curl -X POST -H "Content-Type: application/json" -d '{"receiver": "'"$RECEIVER"'" , "amount":'"$AMOUNT"'}' http://localhost:$PORT/api/transact | jq
         echo "";;
-    3)  curl http://localhost:$PORT/api/transaction-pool-map
+    3)  curl http://localhost:$PORT/api/transaction-pool-map | jq
         echo "";;
-    4)  curl http://localhost:$PORT/api/blocks
+    4)  curl http://localhost:$PORT/api/blocks | jq
         echo "";;
     5)  echo "Starting to mine..."
-        curl http://localhost:$PORT/api/mine-transactions 
+        curl http://localhost:$PORT/api/mine-transactions
         echo ""
         echo "Done."
-        curl http://localhost:$PORT/api/blocks
+        curl http://localhost:$PORT/api/blocks | jq
         echo "";;
 
     6)  echo "Enter the port number: " ;read PORT
