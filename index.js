@@ -6,11 +6,12 @@ const PubSub = require('./app/pubsub');
 const TransactionPool = require('./wallet/transaction-pool');
 const Wallet = require('./wallet');
 const TransactionMiner = require('./app/transaction-miner');
+const REDIS_URL = require('./keys');
 
 const isDevelopment = process.env.ENV === 'development';
 const REDIS_URL = isDevelopment ?
     'redis://127.0.0.1:6379' :
-    'redis://:p9d882fe1f2014a682580409ffa09e0dd4ac69a78a138ccf5b839feb1537d62bd@ec2-34-206-7-149.compute-1.amazonaws.com:21029';
+    REDIS_URL;
 
 const app = express();
 const blockchain = new Blockchain();
