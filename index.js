@@ -171,7 +171,7 @@ app.listen(PORT, () => {
         syncWithRootState();
 });
 
-
+/// ISSUES =>
 
 // 1) blockchain mining reward sent even when transation pool is empty - done
 // 2) prevent sending yourself coins to gain miner's reward - done
