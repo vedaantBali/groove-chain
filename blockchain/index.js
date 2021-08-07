@@ -48,7 +48,7 @@ class Blockchain {
 
             for(let transaction of block.data) {
                 if(transaction.input.address === REWARD_INPUT.address) {
-                    rewardTransactionCount += 1;
+                    rewardTransactionCount++;
 
                     if(rewardTransactionCount > 1) {
                         console.error('Miner reward exceeds limit');

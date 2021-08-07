@@ -6,18 +6,18 @@ const PubSub = require('./app/pubsub');
 const TransactionPool = require('./wallet/transaction-pool');
 const Wallet = require('./wallet');
 const TransactionMiner = require('./app/transaction-miner');
-const REDIS_URL = require('./keys');
+const { REDIS_URL, REDIS_LOCAL } = require('./keys');
 
 const isDevelopment = process.env.ENV === 'development';
-const REDIS_URL = isDevelopment ?
-    'redis://127.0.0.1:6379' :
+const REDIS = isDevelopment ?
+    REDIS_LOCAL :
     REDIS_URL;
 
 const app = express();
 const blockchain = new Blockchain();
 const transactionPool = new TransactionPool();
 const wallet = new Wallet();
-const pubsub = new PubSub({ blockchain, transactionPool, redisUrl: REDIS_URL });
+const pubsub = new PubSub({ blockchain, transactionPool, redisUrl: REDIS });
 const transactionMiner = new TransactionMiner({
     blockchain, transactionPool, wallet, pubsub
 });
@@ -85,10 +85,8 @@ app.get('/api/mine-transactions', (req, res) => {
 });
 
 app.get('/api/wallet-info', (req, res) => {
-    const address = wallet.publicKey;
-    
     res.json({
-        address: address,
+        address: wallet.publicKey,
         balance: Wallet.calculateBalance({
             chain: blockchain.chain,
             address
