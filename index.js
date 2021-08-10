@@ -10,8 +10,8 @@ const { REDIS_URL, REDIS_LOCAL } = require('./keys');
 
 const isDevelopment = process.env.ENV === 'development';
 const REDIS = isDevelopment ?
-    'redis://127.0.0.1:6379' :
-    'redis://:p9d882fe1f2014a682580409ffa09e0dd4ac69a78a138ccf5b839feb1537d62bd@ec2-34-206-7-149.compute-1.amazonaws.com:21029';
+    REDIS_LOCAL :
+    REDIS_URL;
 
 const app = express();
 const blockchain = new Blockchain();
