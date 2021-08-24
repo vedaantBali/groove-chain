@@ -9,10 +9,12 @@ const TransactionMiner = require('./app/transaction-miner');
 
 const isDevelopment = process.env.ENV === 'development';
 const REDIS_URL = isDevelopment ?
-'redis://127.0.0.1:6379' :
-    'redis://:p9d882fe1f2014a682580409ffa09e0dd4ac69a78a138ccf5b839feb1537d62bd@ec2-34-206-7-149.compute-1.amazonaws.com:21029';
+    'redis://127.0.0.1:6379' :
+    'redis://:pa954f4e809ad877b843d3b902f060a375f8b07f279de8bb92723d893beb2ef90@ec2-3-93-123-2.compute-1.amazonaws.com:11579';
 const DEFAULT_PORT = 3000;
 const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
+
+
 
 const app = express();
 const blockchain = new Blockchain();
