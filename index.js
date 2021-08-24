@@ -10,8 +10,8 @@ const { REDIS_LOCAL, REDIS_SERVER } = require('./keys')
 
 const isDevelopment = process.env.ENV === 'development';
 const REDIS_URL = isDevelopment ?
-    REDIS_LOCAL :
-    REDIS_SERVER;
+    `${ REDIS_LOCAL }` :
+    `${ REDIS_SERVER }`;
 const DEFAULT_PORT = 3000;
 const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
 
